@@ -1,0 +1,32 @@
+ # Cargar las librerias
+
+import os
+from osgeo import gdal, gdal_array
+import numpy as np
+import tensorflow as tf
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+import keras
+from keras.preprocessing.image import ImageDataGenerator
+from keras.optimizers import Adam
+from keras.models import Model, Sequential
+from keras.layers import Activation
+from keras.layers import Dense, Dropout, Input, BatchNormalization
+from keras.layers import Conv1D, MaxPooling1D, Flatten, UpSampling1D, AveragePooling1D
+from keras.layers import Conv2D, MaxPooling2D, Flatten
+from keras.layers import Conv2DTranspose, Reshape
+from tensorflow.python.keras import backend as K
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+from keras.optimizers import Adam, Adagrad
+from keras.metrics import categorical_crossentropy
+from keras.utils import to_categorical, plot_model
+from sklearn.metrics import cohen_kappa_score
+from sklearn.metrics import precision_score
+import torch
+import torch.nn as nn
+from keras import backend as K
+from keras import  layers
+import seaborn as sn
+import time
