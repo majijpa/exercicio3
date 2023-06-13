@@ -118,4 +118,75 @@ autoencoder.compile(
     loss='mse',
 )
 
+# treinamento da rede
+
+start_time = time.time()
+# train the network
+autoencoder.fit(
+    training_inputs,
+    training_inputs,
+    # validation_data=(test_inputs, test_inputs),
+    epochs=300,
+    batch_size=32,
+    shuffle=True
+)
+
+type(encoder)
+
+
+# model = Sequential()
+# for layers in encoder.layers:
+#     model.add(layers)
+
+
+# Remove last layer
+encoder.layers.pop()
+
+# 'Freeze' previous layers, so to single-train the new one
+for layer in encoder.layers:
+   layer.trainable = False
+
+
+encoder.summary()
+
+
+
+model = Sequential()
+for layers in encoder.layers:
+    model.add(layers)
+
+
+model.summary()
+
+
+# Append new layer + classification layer
+model.add(Dense(300, activation="relu"))
+model.add(Dense(16, activation='softmax'))
+
+model.summary()
+
+model.compile(optimizer=Adam(lr=0.001), loss='categorical_crossentropy', metrics=['accuracy',],)
+
+model.fit(training_inputs, training_targets, validation_split=0.10, batch_size=128, epochs=100, shuffle=True, verbose=0)
+
+#  Remove last layer
+model.pop()
+
+# 'Freeze' previous layers, so to single-train the new one
+for layer in model.layers:
+    layer.trainable = False
+
+# Append new layer + classification layer
+model.add(Dense(300, activation="relu"))
+model.add(Dropout(0.2))
+model.add(Dense(16, activation="softmax"))
+
+model.summary()
+
+model.compile(optimizer=Adam(lr=0.001), loss='categorical_crossentropy', metrics=['accuracy',],)
+
+history=model.fit(training_inputs, training_targets, validation_split=0.20, batch_size=128, epochs=300, shuffle=True, verbose=0)
+
+print("--- %s seconds ---" % (time.time() - start_time))
+
 
