@@ -30,3 +30,42 @@ from keras import backend as K
 from keras import  layers
 import seaborn as sn
 import time
+
+
+# Carregar os dados e parámetros
+# dados de entrada treinamento
+training_inputs = np.loadtxt("D:/DOCUMENTOS_IMPORTANTES/CURITIBA/DOUTORADO/SETIMO SEMESTRE/manuscrito_SAE_CNN_red/z_SALINAS/b204/inputs_salinas_204B.txt",int)
+
+# dados de entrada treinamento
+training_targets = np.loadtxt("D:/DOCUMENTOS_IMPORTANTES/CURITIBA/DOUTORADO/SETIMO SEMESTRE/manuscrito_SAE_CNN_red/z_SALINAS/b204/targets_salinas_204B.txt",int)
+
+X=training_inputs
+Y=training_targets
+
+
+
+training_inputs,test_inputs,training_targets,test_targets = train_test_split(X,Y,test_size=0.30, random_state=20)
+
+training_targets = to_categorical(training_targets)
+test_targets = to_categorical(test_targets)
+
+
+training_targets = np.delete(training_targets, 0, axis=1)
+test_targets = np.delete(test_targets, 0, axis=1)
+
+# reshape and normalize input images
+nrows, ncols = training_inputs.shape
+training_inputs = training_inputs.reshape(nrows, ncols, 1)
+training_inputs = training_inputs.astype('float32') / 65535
+
+nrows1, ncols1 = test_inputs.shape
+test_inputs = test_inputs.reshape(nrows1, ncols1, 1)
+test_inputs = test_inputs.astype('float32') / 65535
+
+
+input_shape = (204,1)
+batch_size = 32 # numero de imagens que o computador vai processar em cada passo
+kernel_size = 7
+latent_dim = 7
+filters = 64
+dropout = 0.2
