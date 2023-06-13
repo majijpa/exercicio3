@@ -189,4 +189,17 @@ history=model.fit(training_inputs, training_targets, validation_split=0.20, batc
 
 print("--- %s seconds ---" % (time.time() - start_time))
 
+# METRICAS
+
+# acuracia do modelo sobre dados de treinamento
+scores = model.evaluate(training_inputs, training_targets)
+print("\nAcuracia dos dados de treinamento:\n %.2f%%" % (100.0 * scores[1]))
+
+
+# test_inputs = np.expand_dims(test_inputs, axis=2)
+
+# acuracia do modelo sobre dados de teste
+scores_test = model.evaluate(test_inputs, test_targets)
+print("\nAcuracia dos dados de teste:\n\n %.2f%%" % (100.0 * scores_test[1]))
+
 
