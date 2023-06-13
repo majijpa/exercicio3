@@ -202,4 +202,9 @@ print("\nAcuracia dos dados de treinamento:\n %.2f%%" % (100.0 * scores[1]))
 scores_test = model.evaluate(test_inputs, test_targets)
 print("\nAcuracia dos dados de teste:\n\n %.2f%%" % (100.0 * scores_test[1]))
 
+# predicao do modelo
+
+# predicao dos datos de teste
+pred=model.predict(test_inputs)
+
 
